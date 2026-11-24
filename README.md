@@ -27,21 +27,24 @@ python example.py --help
 |---|---|---|
 | `--model` | `movenet.tflite` | `.tflite` model to run (plain or Vela-compiled) |
 | `--image` | `example_input.jpg` | input image |
+| `--runs` | `50` | timed inference runs |
+| `--warmup` | `5` | untimed runs before timing |
+| `--cpu` | off | run on the CPU instead of the NPU |
+
+It prints the mean, median, min, p90 and standard deviation of the inference time. The mean is comparable to `benchmark_model`'s `avg`, but includes a little Python overhead per run.
 
 The result is saved next to the input with `_output` added to the name: `photos/fall.jpg` becomes `photos/fall_output.jpg`.
 
 ## NPU or CPU
 
-The script runs on the NPU through the delegate passed to `tflite.Interpreter(...)`. To compare against the CPU, remove the `experimental_delegates=[...]` argument.
+The script runs on the NPU by default. Add `--cpu` to run on the CPU for comparison. The delegate path is set by `DELEGATE` at the top of `example.py`.
 
 Expected on the Matrix-800:
 
-| Backend | Inference | Log line |
+| Backend | Mean inference | Log line |
 |---|---|---|
-| NPU | ~9 ms | `EthosuDelegate: 116 nodes delegated out of 157 nodes with 7 partitions` |
-| CPU | ~45 ms | `Created TensorFlow Lite XNNPACK delegate for CPU` only |
-
-The first run includes setup time, so run it twice for a realistic number.
+| NPU | ~7–9 ms | `EthosuDelegate: 116 nodes delegated out of 157 nodes with 7 partitions` |
+| CPU | ~42–45 ms | `Created TensorFlow Lite XNNPACK delegate for CPU` only |
 
 ## Notes
 
