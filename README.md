@@ -43,8 +43,8 @@ Expected on the Matrix-800:
 
 | Backend | Mean inference | Log line |
 |---|---|---|
-| NPU | ~7–9 ms | `EthosuDelegate: 116 nodes delegated out of 157 nodes with 7 partitions` |
-| CPU | ~42–45 ms | `Created TensorFlow Lite XNNPACK delegate for CPU` only |
+| NPU | ~8–9 ms | `EthosuDelegate: 116 nodes delegated out of 157 nodes with 7 partitions` |
+| CPU | ~43–45 ms | `Created TensorFlow Lite XNNPACK delegate for CPU` only |
 
 ## Notes
 
